@@ -72,6 +72,7 @@ experiments/results/*.npy
 # Backtest cache
 cache/
 .backtest_cache/
+backtest_data/
 
 # Temporary files
 tmp/
