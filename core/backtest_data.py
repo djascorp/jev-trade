@@ -92,8 +92,9 @@ async def _download_candles(symbol: str, granularity: int, count: int) -> list[d
             all_candles.extend(candles)
             remaining -= len(candles)
 
-            # Next batch ends at the oldest candle of this batch
-            end_epoch = int(candles[0]["epoch"]) - 1
+            # Next batch ends just before the oldest candle of this batch,
+            # regardless of the order the API returned.
+            end_epoch = min(int(c["epoch"]) for c in candles) - 1
 
             if len(candles) < batch:
                 logger.info("Reached start of available data")
@@ -102,10 +103,18 @@ async def _download_candles(symbol: str, granularity: int, count: int) -> list[d
     finally:
         await api.disconnect()
 
-    # Oldest first
-    all_candles.reverse()
-    logger.info(f"Downloaded {len(all_candles)} candles total")
-    return all_candles
+    candles = _sorted_oldest_first(all_candles)
+    logger.info(f"Downloaded {len(candles)} candles total")
+    return candles
+
+
+def _sorted_oldest_first(candles: list[dict]) -> list[dict]:
+    """Sort ascending by epoch and drop duplicate epochs (pagination overlap)."""
+    deduped: list[dict] = []
+    for c in sorted(candles, key=lambda c: int(c["epoch"])):
+        if not deduped or int(c["epoch"]) > int(deduped[-1]["epoch"]):
+            deduped.append(c)
+    return deduped
 
 
 def _load_csv(path: Path) -> list[dict]:
@@ -120,7 +129,8 @@ def _load_csv(path: Path) -> list[dict]:
                 "low": float(row["low"]),
                 "close": float(row["close"]),
             })
-    return candles
+    # Normalize ordering: caches written by older versions are newest-first.
+    return _sorted_oldest_first(candles)
 
 
 def _save_csv(path: Path, candles: list[dict]):
