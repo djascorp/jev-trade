@@ -1,16 +1,16 @@
 """Test de connexion Deriv pour jev-trade (read-only : aucun trade).
 
 Utilise le flux PAT comme en production (cf. multibot/base_bot.py).
+Prérequis dans .env : DERIV_PAT_TOKEN, DERIV_PAT_APP_ID, DERIV_PAT_ACCOUNT_ID.
 """
 import asyncio
 import os
 import sys
-
-sys.path.insert(0, "/home/djasnive/PROJECTS/Python/jev-trade")
+from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv("/home/djasnive/PROJECTS/Python/jev-trade/.env")
+load_dotenv(Path(__file__).parent / ".env")
 
 from core.deriv_api import DerivAPI
 
@@ -19,6 +19,15 @@ async def main():
     pat = os.getenv("DERIV_PAT_TOKEN", "")
     app_id = os.getenv("DERIV_PAT_APP_ID", "")
     account = os.getenv("DERIV_PAT_ACCOUNT_ID", "")
+
+    missing = [name for name, val in {
+        "DERIV_PAT_TOKEN": pat,
+        "DERIV_PAT_APP_ID": app_id,
+        "DERIV_PAT_ACCOUNT_ID": account,
+    }.items() if not val]
+    if missing:
+        print(f"Configuration PAT incomplete dans .env, manquant : {', '.join(missing)}")
+        sys.exit(1)
 
     api = DerivAPI(
         ws_url="", api_token="",
