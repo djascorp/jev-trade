@@ -6,3 +6,7 @@ numpy>=1.24.0
 fastapi>=0.115.0
 uvicorn>=0.30.0
 python-multipart>=0.0.6
+typesafe-sdk>=1.0.0
+
+# Dev / tests
+pytest>=8.0.0

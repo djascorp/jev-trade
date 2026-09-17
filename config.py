@@ -49,6 +49,10 @@ SMC_MIN_MSS_STRENGTH = float(os.getenv("SMC_MIN_MSS_STRENGTH", "0.0"))
 CONTRACT_MODE = os.getenv("CONTRACT_MODE", "multiplier").lower()
 MULTIPLIER_LEVERAGE = int(os.getenv("MULTIPLIER_LEVERAGE", "100"))
 
+# Jev (TypeSafe System One) decision layer
+TYPESAFE_API_KEY = os.getenv("TYPESAFE_API_KEY", "")
+JEV_MIN_COMPOSITE = float(os.getenv("JEV_MIN_COMPOSITE", "0.6"))
+
 # Binary mode SL/TP multipliers (applied on top of strategy-computed SL/TP)
 # Values > 1.0 widen SL/TP for binary to avoid premature early-sell at unfavorable returns
 BINARY_SL_MULTIPLIER = float(os.getenv("BINARY_SL_MULTIPLIER", "1.0"))
