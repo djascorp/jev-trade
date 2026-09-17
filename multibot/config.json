@@ -1,0 +1,85 @@
+{
+  "bots": [
+    {
+      "name": "r25_macd_m15",
+      "enabled": true,
+      "symbol": "R_25",
+      "stake": 4.0,
+      "multiplier": 1,
+      "max_positions": 1,
+      "granularity": 900,
+      "strategy": "macd",
+      "contract_mode": "binary",
+      "contract_duration": 15,
+      "contract_duration_unit": "m",
+      "entry_delay_seconds": 0,
+      "bad_hours": [
+        12,
+        14,
+        16,
+        20
+      ]
+    },
+    {
+      "name": "eurgbp_stochrsi_h1",
+      "enabled": true,
+      "symbol": "frxEURGBP",
+      "stake": 4.0,
+      "multiplier": 1,
+      "max_positions": 1,
+      "granularity": 3600,
+      "strategy": "grid",
+      "contract_mode": "binary",
+      "contract_duration": 60,
+      "contract_duration_unit": "m",
+      "allowed_directions": ["CALL"],
+      "k_period": 5,
+      "d_period": 3,
+      "rsi_period": 14,
+      "stoch_oversold": 20,
+      "stoch_overbought": 80,
+      "rsi_oversold": 40,
+      "rsi_overbought": 60,
+      "anti_trend_threshold": 0,
+      "entry_delay_seconds": 0,
+      "bad_hours": [
+        0,
+        3,
+        11,
+        20
+      ]
+    },
+    {
+      "name": "r10_macd_v2_h1",
+      "enabled": true,
+      "symbol": "R_10",
+      "stake": 4.0,
+      "multiplier": 1,
+      "max_positions": 1,
+      "granularity": 3600,
+      "strategy": "macd_v2",
+      "contract_mode": "binary",
+      "contract_duration": 60,
+      "contract_duration_unit": "m",
+      "strength_percentile": 75,
+      "strength_lookback": 200,
+      "entry_delay_seconds": 0,
+      "bad_hours": [
+        2,
+        5,
+        6,
+        7,
+        12,
+        13,
+        14,
+        15,
+        16,
+        18
+      ]
+    }
+  ],
+  "shared": {
+    "log_dir": "multibot/logs",
+    "status_file": "multibot/status.json"
+  }
+}

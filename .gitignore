@@ -1,0 +1,79 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+
+# Environment
+.env
+.venv/
+venv/
+
+# Logs
+*.log
+multibot/logs/
+
+# Data / results
+experiments/results/
+*.json.bak
+*.egg
+
+# Virtual Environment
+venv/
+.venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Environment variables
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Experiments data (keep code, ignore large data)
+experiments/data/raw/
+experiments/data/processed/*.csv
+experiments/results/*.pkl
+experiments/results/*.npy
+
+# Backtest cache
+cache/
+.backtest_cache/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
